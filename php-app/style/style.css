@@ -1,0 +1,51 @@
+
+body {
+
+    background-image: url("https://www.xmple.com/wallpaper/grey-white-gradient-linear-2880x1800-c2-a9a9a9-ffffff-a-315-f-14.svg");
+}
+
+
+
+
+.container {
+
+    padding:20px;
+    margin: 50px;
+}
+
+h1  {
+
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 3px 2px 4px #34495e ;
+
+}
+
+.container2 {
+
+    padding:20px;
+    width:75%;
+    float: right;
+}
+
+
+
+
+table  {
+ 
+ width : 80%;
+ display: inline-block;
+
+
+
+}
+
+td {
+ display: inline-block;
+
+}
+
+.copyright {
+
+    text-align: center;
+}

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 	<meta charset="utf-8">
 	<title></title>
 </head>
@@ -95,10 +99,17 @@ form {
   	<th>Name</th>
   	<th>price</th>
   	<th>SPrice</th>
-  	<th>quantity</th>
+  	<th>main_quantity</th>
+    <th>sold_quantity</th>
+    <th>remaining</th>
+    <th>added_quantity</th>
+
   </tr>
 
   <?php 
+  session_start();
+  if (isset($_SESSION['username']) == true){
+
   if(isset($_POST{'search'}))
 {
 
@@ -107,7 +118,10 @@ $con = mysqli_connect('sql204.byethost.com', 'b10_22763959', '0142468869');
 if (!$con)die ("faild to coonect");
 mysqli_select_db( $con, "b10_22763959_sotredb");
 mysqli_query($con, "set NAMES utf8");
-$query = "SELECT `Name`, `price`, `SPrice`, 'quantity' FROM Categories WHERE Code =$Code LIMIT 1";
+
+ $uname = $_SESSION['login'];
+
+$query = "SELECT `Name`, `price`, `SPrice`, `main_quantity`,`sold_quantity`,`remaining`,`added_quantity` FROM `".$uname.".categories` WHERE Code =$Code LIMIT 1";
 $result = mysqli_query($con , $query);
 
 if (mysqli_num_rows($result) > 0)
@@ -117,7 +131,16 @@ if (mysqli_num_rows($result) > 0)
 while ($row=mysqli_fetch_array($result)) {
 
 	?>
-	<tr><td><?php echo $row['Name'];?></td><td><?php echo $row['price'];?></td><td><?php echo $row['SPrice'];?></td><td><?php echo $row['quantity'];?></td></tr>
+	<tr>
+      <td><?php echo $row['Name'];?></td>
+      <td><?php echo $row['price'];?></td>
+      <td><?php echo $row['SPrice'];?></td>
+      <td><?php echo $row['main_quantity'];?></td>
+      <td><?php echo $row['sold_quantity'];?></td>
+      <td><?php echo $row['remaining'];?></td>
+      <td><?php echo $row['added_quantity'];?></td>
+    </tr>
+
 	<?php
 } 
 
@@ -142,7 +165,7 @@ while ($row=mysqli_fetch_array($result)) {
        $SPrice = "";
        $quantity ="";
 }
-
+}
   ?>
 
 

@@ -1,35 +1,40 @@
 
 <?php
-
+session_start();
+if (isset($_SESSION['username']) == true){
 $db = mysqli_connect("sql204.byethost.com", "b10_22763959", "0142468869", "b10_22763959_sotredb");
 $db->query("SET NAMES utf8");
 $db->query("SET CHARACTER SET utf8");
 
 if (isset($_POST['insert-btn'])) {
-   session_start();
+
   $Code = mysqli_real_escape_string($db, $_POST['Code']);
   $Name = mysqli_real_escape_string($db,$_POST['Name']);
   $price = mysqli_real_escape_string($db,$_POST['price']);
   $SPrice = mysqli_real_escape_string($db,$_POST['SPrice']);
   $quantity = mysqli_real_escape_string($db,$_POST['quantity']);
 
+ $uname = $_SESSION['login'];
 
-
-  $sql = "INSERT INTO Categories(Code, Name, price, SPrice, quantity) VALUES ('$Code', '$Name', '$price', '$SPrice', '$quantity')";
+  $sql = "INSERT INTO  `".$uname.".categories` (Code, Name, price, SPrice, main_quantity) VALUES ('$Code', '$Name', '$price', '$SPrice', '$quantity')";
  
   mysqli_query($db , $sql);
 
-   echo "Insertion Successfully";
+
+   echo "Insertion Successfully Into Table";
 
 
 }
 
-
+}
 ?>
 
 <html>
 <head>
-
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
   <title>insertion page</title>
   <link rel="stylesheet" type="text/css" href="style/i-style.css">
 

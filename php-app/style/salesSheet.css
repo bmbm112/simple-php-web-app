@@ -1,0 +1,92 @@
+:root {
+  --input-padding-x: .75rem;
+  --input-padding-y: .75rem;
+}
+
+html,
+body {
+  height:60%;
+}
+
+body {
+
+  display: inline-block;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  text-align: center;
+  width: 100%;
+}
+
+.form-signin {
+  width: 55%;
+  padding: 15px;
+  margin: 0 auto;
+  display: inline-block;
+  border: 2px solid black;
+
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+
+
+
+.btn {
+
+  width: 20%;
+  height: 50px;
+  background-color: #339fff;
+  color:white;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+.btn:hover {
+
+  background-color: #333cff;
+}
+
+.search-btn {
+
+  padding: 15px;
+}
+
+.form-control {
+
+width: 40%;
+
+}
+
+h1 , p {
+
+  text-align: center;
+}
+
+
+table {
+  width: 70%;
+  max-width: 420px;
+  padding: 37px;
+  margin: 0 auto;
+  font-size: 23px;
+
+}
+
+th , td {
+
+  border: 2px solid black;
+  text-align: center;
+}
+
+input[type=text] {
+
+height: 30px;
+width: 30%;
+
+}

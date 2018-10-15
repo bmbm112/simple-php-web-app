@@ -1,88 +1,103 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+
+<?php 
+ session_start();
+
+$con = mysqli_connect('sql204.byethost.com', 'b10_22763959', '0142468869');
+if (!$con)die ("faild to connect");
+mysqli_select_db( $con, "b10_22763959_sotredb");
+ 
+   
+   if(isset($_POST{'login'})) {
+
+      
+      $uname = mysqli_real_escape_string($con,$_POST['username']);
+      $pass = mysqli_real_escape_string($con,$_POST['password']); 
+   
+      $_SESSION['login'] = $uname;
+      
+      $sql = "SELECT username , password FROM users WHERE username = '$uname' AND password = '$pass' ";
+   
+      $result = mysqli_query($con,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      
+      $count = mysqli_num_rows($result);
+      
+    
+      if($count == 1) {
+         
+         echo "You Are Now Logged In  ," , "Wellcome    ",$uname ,"        " ;
+         echo "<script>setTimeout(\"location.href = 'homepage.php';\",3000);</script>";
+       
+
+         $_SESSION['username'] = $_SESSION['login'];
+         $_SESSION['start'] = time(); // Taking now logged in time.
+            // Ending a session in 30 minutes from the starting time.
+            $_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
+
+        
+        $query = "CREATE TABLE  `".$uname.".categories` ( Code BIGINT(50)  NOT NULL, Name varchar(255) NOT NULL, price decimal(6,2) NOT NULL, SPrice decimal(6,2) NOT NULL, main_quantity int NOT NULL, sold_quantity int NOT NULL, remaining int NOT NULL, added_quantity int NOT NULL)";
+
+        $query1 = "CREATE TABLE  `".$uname.".dailysales` ( Day varchar(255) , Code BIGINT(50), Name varchar(255),price decimal(6,2) NOT NULL, SPrice int NOT NULL, main_quantity int NOT NULL, sold_quantity int NOT NULL, total_cash decimal(6,2) NOT NULL)";
+
+
+mysqli_query($con, $query);
+mysqli_query($con, $query1);
+
+exit();
+
+      }else {
+
+         echo "Your Login Name or Password is invalid";
+      }
+
+      exit();
+
+
+   }
+?>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-	<title>O-Storage</title>
-	 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
-    <link href="style/style.css" rel="stylesheet"  type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-</head>
-<body>
-
-<header>
-  <div class="container">
-  	<div class="header">
-  <h1> Online Form for Database relations</h1>
- </div>
-</div>
-
-<div class="container2">
-  	<div class="row">
-  		<div class="col">
-      <a href="input-data.php" class="button">STORE</a>
-   <div class="row">
-  		<div class="col">
-  	<a href="search.php" class="button">SEARCH</a>
-  </div>
-  </div>
-  <div class="row">
-      <div class="col">
-    <a href="show-DB.php" class="button">Display</a>
-  </div>
-  </div>
-  <div class="row">
-      <div class="col">
-    <a href="update.php" class="button">Update</a>
-  </div>
-  </div>
-     </div>
- </div>
- </div>
-
-</header>
-
-<div class="container">
-	<div class="row">
-		<div class="col">
-		</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col">
-		</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col">
-		</div>
-	</div>
-</div>
-
-<footer>
-
-<div class="copyright py-4 text-center text-white">
-    <div class="container">
-        <p>Copyright &copy; Online Data App By Ahmed SOLIMAN</p>
-    </div>
-</div>
-
-</footer>
+    <title>log in page</title>
 
 
-<script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="js/jqBootstrapValidation.js"></script>
-</body>
+    <!-- Custom styles -->
+    <link href="style/sign-style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <form action="index.php" method="post" class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="http://www.srmcm.ac.in/images/login.png" alt="" width="110" height="110">
+        <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+        <p> Enter User Info To Continue Surfing This Site<a href="https://caniuse.com/#feat=css-placeholder-shown"></a></p>
+      </div>
+      <div class="form-label-group">
+        <input type="text" name="username" id="username" class="form-control" placeholder="UserName" required>
+        <label for="username">Username</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="text" name="password" id="password" class="form-control" placeholder="Password" required>
+        <label for="password">Password</label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <div class="sign-btn">
+      <input type="submit" name="login" class="btn btn-lg btn-primary btn-block" value="Sign in">
+      </div>
+      <p class="mt-5 mb-3 text-muted ">&copy; 2017-2018</p>
+    </form>
+  </body>
 </html>
